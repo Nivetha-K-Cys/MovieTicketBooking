@@ -7,10 +7,13 @@ using MovieTicketBooking.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+
 // 1. Add Controllers & Swagger
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<TheaterService>();
 
 // 2. Database Setup with Resiliency
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -22,6 +25,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 // 3. Register Movie Module Services ONLY
 builder.Services.AddScoped<IMovieRepository, MovieRepository>();
 builder.Services.AddScoped<IMovieService, MovieService>();
+
+builder.Services.AddScoped<ITheaterRepository, TheaterRepository>();
+builder.Services.AddScoped<ITheaterService, TheaterService>(); 
 
 var app = builder.Build();
 

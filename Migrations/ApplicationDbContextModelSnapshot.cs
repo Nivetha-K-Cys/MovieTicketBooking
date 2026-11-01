@@ -51,6 +51,9 @@ namespace MovieTicketBooking.Migrations
                     b.Property<DateTime>("ReleaseDate")
                         .HasColumnType("date");
 
+                    b.Property<int?>("TheaterId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(150)
@@ -58,7 +61,41 @@ namespace MovieTicketBooking.Migrations
 
                     b.HasKey("MovieId");
 
+                    b.HasIndex("TheaterId");
+
                     b.ToTable("Movies");
+                });
+
+            modelBuilder.Entity("MovieTicketBooking.Models.Theater", b =>
+                {
+                    b.Property<int>("TheaterId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TheaterId"));
+
+                    b.Property<string>("Location")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.HasKey("TheaterId");
+
+                    b.ToTable("Theaters");
+                });
+
+            modelBuilder.Entity("MovieTicketBooking.Models.Movie", b =>
+                {
+                    b.HasOne("MovieTicketBooking.Models.Theater", "Theater")
+                        .WithMany()
+                        .HasForeignKey("TheaterId");
+
+                    b.Navigation("Theater");
                 });
 #pragma warning restore 612, 618
         }

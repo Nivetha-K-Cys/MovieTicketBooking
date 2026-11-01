@@ -165,3 +165,4 @@ C:\Users\niven\source\repos\MovieTicketBooking\MovieTicketBooking\obj\Debug\net1
 C:\Users\niven\source\repos\MovieTicketBooking\MovieTicketBooking\obj\Debug\net10.0\MovieTicketBooking.pdb
 C:\Users\niven\source\repos\MovieTicketBooking\MovieTicketBooking\obj\Debug\net10.0\MovieTicketBooking.genruntimeconfig.cache
 C:\Users\niven\source\repos\MovieTicketBooking\MovieTicketBooking\obj\Debug\net10.0\ref\MovieTicketBooking.dll
+C:\Users\niven\source\repos\MovieTicketBooking\MovieTicketBooking\obj\Debug\net10.0\MovieTicketBooking.sourcelink.json
