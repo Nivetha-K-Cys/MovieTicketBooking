@@ -1,55 +1,61 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using MovieTicketBooking.Data;
-using MovieTicketBooking.Dtos;
-using MovieTicketBooking.Interfaces;
 using MovieTicketBooking.Repositories;
 using MovieTicketBooking.Repositories.Interfaces;
 using MovieTicketBooking.Services;
 using MovieTicketBooking.Services.Interfaces;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// 1. Add Controllers & Swagger
+// Add Controllers & Swagger
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// 2. Database Setup with Resiliency
+// Database Connection
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection"),
         sqlOptions => sqlOptions.EnableRetryOnFailure()
     ));
 
-// 3. Register All Module Services & Repositories
-builder.Services.AddScoped<IMovieRepository, MovieRepository>();
-builder.Services.AddScoped<IMovieService, MovieService>();
+// JWT Authentication Setup
+var jwtSettings = builder.Configuration.GetSection("Jwt");
+var key = Encoding.ASCII.GetBytes(jwtSettings["Key"] ?? "SuperSecretKeyHere1234567890");
 
-builder.Services.AddScoped<ITheaterRepository, TheaterRepository>();
-builder.Services.AddScoped<ITheaterService, TheaterService>();
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = jwtSettings["Issuer"],
+        ValidAudience = jwtSettings["Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(key)
+    };
+});
 
-builder.Services.AddScoped<IScreenRepository, ScreenRepository>();
-builder.Services.AddScoped<IScreenService, ScreenService>();
+builder.Services.AddAuthorization();
 
-builder.Services.AddScoped<ISeatRepository, SeatRepository>();
-builder.Services.AddScoped<ISeatService, SeatService>();
+// Register Repositories & Services
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IJwtService, JwtService>();
 
-builder.Services.AddScoped<IShowRepository, ShowRepository>();
-builder.Services.AddScoped<IShowService, ShowService>();
-
-builder.Services.AddScoped<IShowSeatRepository, ShowSeatRepository>();
-builder.Services.AddScoped<IShowSeatService, ShowSeatService>();
-
-// Using fully qualified namespace to completely remove ambiguity for IBookingRepository
-builder.Services.AddScoped<MovieTicketBooking.Repositories.Interfaces.IBookingRepository, BookingRepository>();
-builder.Services.AddScoped<IBookingService, BookingService>();
-
-builder.Services.AddScoped<IBookingSeatRepository, BookingSeatRepository>();
-builder.Services.AddScoped<IBookingSeatService, BookingSeatService>();
+// (மற்ற repository மற்றும் serviceகளும் இதனுடன் இருக்க வேண்டும்)
 
 var app = builder.Build();
 
-// 4. HTTP Pipeline Setup
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -57,6 +63,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// Authentication மற்றும் Authorization மிடில்வேரை கண்டிப்பாக சேர்க்கவும்
+app.UseAuthentication();
 app.UseAuthorization();
+
 app.MapControllers();
 app.Run();
