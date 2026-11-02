@@ -17,5 +17,7 @@ namespace MovieTicketBooking.Models
 
         [ForeignKey("TheaterId")]
         public Theater? Theater { get; set; }
+
+        public ICollection<Seat>? Seats { get; set; }
     }
 }

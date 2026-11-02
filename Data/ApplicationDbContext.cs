@@ -15,6 +15,10 @@ namespace MovieTicketBooking.Data
 
         public DbSet<Screen> Screens { get; set; }
 
+        public DbSet<Seat> Seats { get; set; }
+
+       
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -28,7 +32,15 @@ namespace MovieTicketBooking.Data
                 entity.Property(e => e.ReleaseDate).HasColumnType("date");
                 entity.Property(e => e.Language).IsRequired().HasMaxLength(50);
                 entity.Property(e => e.Genre).IsRequired().HasMaxLength(50);
+
+            
             });
+            modelBuilder.Entity<Seat>(entity =>
+            {
+                entity.Property(e => e.Price)
+                      .HasPrecision(18, 2);
+            });
+
         }
     }
 }

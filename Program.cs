@@ -33,6 +33,9 @@ builder.Services.AddScoped<ITheaterService, TheaterService>();
 builder.Services.AddScoped<IScreenRepository, ScreenRepository>(); 
 builder.Services.AddScoped<IScreenService, ScreenService>();
 
+builder.Services.AddScoped<ISeatRepository, SeatRepository>();
+builder.Services.AddScoped<ISeatService, SeatService>();
+
 var app = builder.Build();
 
 // 4. HTTP Pipeline Setup
