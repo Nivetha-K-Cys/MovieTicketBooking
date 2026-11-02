@@ -95,6 +95,48 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "MovieTicketBooking.Controllers.ScreensController",
+    "Method": "GetAllScreens",
+    "RelativePath": "api/screens",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MovieTicketBooking.Controllers.ScreensController",
+    "Method": "CreateScreen",
+    "RelativePath": "api/screens",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "createDto",
+        "Type": "MovieTicketBooking.Dtos.CreateScreenDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MovieTicketBooking.Controllers.ScreensController",
+    "Method": "GetScreenById",
+    "RelativePath": "api/screens/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "MovieTicketBooking.Controllers.TheatersController",
     "Method": "GetTheaters",
     "RelativePath": "api/Theaters",

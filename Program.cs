@@ -27,7 +27,11 @@ builder.Services.AddScoped<IMovieRepository, MovieRepository>();
 builder.Services.AddScoped<IMovieService, MovieService>();
 
 builder.Services.AddScoped<ITheaterRepository, TheaterRepository>();
-builder.Services.AddScoped<ITheaterService, TheaterService>(); 
+builder.Services.AddScoped<ITheaterService, TheaterService>();
+
+
+builder.Services.AddScoped<IScreenRepository, ScreenRepository>(); 
+builder.Services.AddScoped<IScreenService, ScreenService>();
 
 var app = builder.Build();
 
