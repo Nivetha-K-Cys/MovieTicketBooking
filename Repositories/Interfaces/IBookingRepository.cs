@@ -1,6 +1,10 @@
-﻿namespace MovieTicketBooking.Repositories.Interfaces
+﻿using MovieTicketBooking.Models;
+
+namespace MovieTicketBooking.Repositories.Interfaces
 {
-    public class IBookingService
+    public interface IBookingRepository
     {
+        Task<List<ShowSeat>> GetShowSeatsByIdsAsync(List<int> showSeatIds);
+        Task<Booking> AddAsync(Booking booking);
     }
 }

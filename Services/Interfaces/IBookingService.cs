@@ -1,6 +1,10 @@
-﻿namespace MovieTicketBooking.Services.Interfaces
+﻿using MovieTicketBooking.DTOs;
+using MovieTicketBooking.Models;
+
+namespace MovieTicketBooking.Services.Interfaces
 {
-    public class IBookingService
+    public interface IBookingService
     {
+        Task<Booking?> CreateBookingAsync(CreateBookingDto dto);
     }
 }

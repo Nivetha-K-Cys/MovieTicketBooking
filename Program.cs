@@ -4,17 +4,15 @@ using MovieTicketBooking.Dtos;
 using MovieTicketBooking.Interfaces;
 using MovieTicketBooking.Repositories;
 using MovieTicketBooking.Repositories.Interfaces;
-using MovieTicketBooking.Services; 
+using MovieTicketBooking.Services;
+using MovieTicketBooking.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
-
-
 
 // 1. Add Controllers & Swagger
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddScoped<TheaterService>();
 
 // 2. Database Setup with Resiliency
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -23,15 +21,14 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
         sqlOptions => sqlOptions.EnableRetryOnFailure()
     ));
 
-// 3. Register Movie Module Services ONLY
+// 3. Register All Module Services & Repositories
 builder.Services.AddScoped<IMovieRepository, MovieRepository>();
 builder.Services.AddScoped<IMovieService, MovieService>();
 
 builder.Services.AddScoped<ITheaterRepository, TheaterRepository>();
 builder.Services.AddScoped<ITheaterService, TheaterService>();
 
-
-builder.Services.AddScoped<IScreenRepository, ScreenRepository>(); 
+builder.Services.AddScoped<IScreenRepository, ScreenRepository>();
 builder.Services.AddScoped<IScreenService, ScreenService>();
 
 builder.Services.AddScoped<ISeatRepository, SeatRepository>();
@@ -42,6 +39,13 @@ builder.Services.AddScoped<IShowService, ShowService>();
 
 builder.Services.AddScoped<IShowSeatRepository, ShowSeatRepository>();
 builder.Services.AddScoped<IShowSeatService, ShowSeatService>();
+
+// Using fully qualified namespace to completely remove ambiguity for IBookingRepository
+builder.Services.AddScoped<MovieTicketBooking.Repositories.Interfaces.IBookingRepository, BookingRepository>();
+builder.Services.AddScoped<IBookingService, BookingService>();
+
+builder.Services.AddScoped<IBookingSeatRepository, BookingSeatRepository>();
+builder.Services.AddScoped<IBookingSeatService, BookingSeatService>();
 
 var app = builder.Build();
 
@@ -55,5 +59,4 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
-
 app.Run();
