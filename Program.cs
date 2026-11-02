@@ -3,7 +3,8 @@ using MovieTicketBooking.Data;
 using MovieTicketBooking.Dtos;
 using MovieTicketBooking.Interfaces;
 using MovieTicketBooking.Repositories;
-using MovieTicketBooking.Services;
+using MovieTicketBooking.Repositories.Interfaces;
+using MovieTicketBooking.Services; 
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,6 +39,9 @@ builder.Services.AddScoped<ISeatService, SeatService>();
 
 builder.Services.AddScoped<IShowRepository, ShowRepository>();
 builder.Services.AddScoped<IShowService, ShowService>();
+
+builder.Services.AddScoped<IShowSeatRepository, ShowSeatRepository>();
+builder.Services.AddScoped<IShowSeatService, ShowSeatService>();
 
 var app = builder.Build();
 

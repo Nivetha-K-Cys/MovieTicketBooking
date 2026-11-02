@@ -19,6 +19,8 @@ namespace MovieTicketBooking.Data
 
         public DbSet<Show> Shows { get; set; }
 
+        public DbSet<ShowSeat> ShowSeats { get; set; }
+
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -41,6 +43,18 @@ namespace MovieTicketBooking.Data
             {
                 entity.Property(e => e.Price)
                       .HasPrecision(18, 2);
+            });
+            modelBuilder.Entity<ShowSeat>(entity =>
+            {
+                entity.HasOne(s => s.Show)
+                      .WithMany(sh => sh.ShowSeats)
+                      .HasForeignKey(s => s.ShowId)
+                      .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(s => s.Seat)
+                      .WithMany()
+                      .HasForeignKey(s => s.SeatId)
+                      .OnDelete(DeleteBehavior.Restrict);
             });
 
         }

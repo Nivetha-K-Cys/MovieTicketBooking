@@ -18,13 +18,12 @@ namespace MovieTicketBooking.Models
         [ForeignKey("ScreenId")]
         public Screen? Screen { get; set; }
 
-        [Required]
         public DateTime StartTime { get; set; }
-
-        [Required]
         public DateTime EndTime { get; set; }
 
-        [Column(TypeName = "decimal(10,2)")]
+        [Column(TypeName = "decimal(18,2)")]
         public decimal TicketPrice { get; set; }
+
+        public ICollection<ShowSeat>? ShowSeats { get; set; }
     }
 }
