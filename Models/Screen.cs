@@ -19,5 +19,7 @@ namespace MovieTicketBooking.Models
         public Theater? Theater { get; set; }
 
         public ICollection<Seat>? Seats { get; set; }
+
+        public ICollection<Show>? Shows { get; set; }
     }
 }

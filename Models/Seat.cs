@@ -16,5 +16,7 @@ namespace MovieTicketBooking.Models
 
         // Ithu thaan antha Navigation Property - romba mukkiyam!
         public Screen Screen { get; set; } = null!;
+
+       
     }
 }
