@@ -1,15 +1,21 @@
-﻿
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using MovieTicketBooking.Models;
 
 namespace MovieTicketBooking.Data
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext(
+        DbContextOptions<ApplicationDbContext> options) : DbContext(options)
     {
-        public ApplicationDbContext(
-            DbContextOptions<ApplicationDbContext> options)
-            : base(options)
+        // Fallback connection string
+        protected override void OnConfiguring(
+            DbContextOptionsBuilder optionsBuilder)
         {
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer(
+                    @"Server=.\SQLEXPRESS;Database=MovieTicketBooking;Trusted_Connection=True;TrustServerCertificate=True;"
+                );
+            }
         }
 
         public DbSet<Movie> Movies { get; set; } = null!;
@@ -31,44 +37,44 @@ namespace MovieTicketBooking.Data
                 entity.HasKey(e => e.MovieId);
 
                 entity.Property(e => e.Title)
-                      .IsRequired()
-                      .HasMaxLength(150);
+                    .IsRequired()
+                    .HasMaxLength(150);
 
                 entity.Property(e => e.Description)
-                      .HasMaxLength(500);
+                    .HasMaxLength(500);
 
                 entity.Property(e => e.DurationMinutes)
-                      .IsRequired();
+                    .IsRequired();
 
                 entity.Property(e => e.ReleaseDate)
-                      .HasColumnType("date");
+                    .HasColumnType("date");
 
                 entity.Property(e => e.Language)
-                      .IsRequired()
-                      .HasMaxLength(50);
+                    .IsRequired()
+                    .HasMaxLength(50);
 
                 entity.Property(e => e.Genre)
-                      .IsRequired()
-                      .HasMaxLength(50);
+                    .IsRequired()
+                    .HasMaxLength(50);
             });
 
             modelBuilder.Entity<Seat>(entity =>
             {
                 entity.Property(e => e.Price)
-                      .HasPrecision(18, 2);
+                    .HasPrecision(18, 2);
             });
 
             modelBuilder.Entity<ShowSeat>(entity =>
             {
                 entity.HasOne(s => s.Show)
-                      .WithMany(sh => sh.ShowSeats)
-                      .HasForeignKey(s => s.ShowId)
-                      .OnDelete(DeleteBehavior.Restrict);
+                    .WithMany(sh => sh.ShowSeats)
+                    .HasForeignKey(s => s.ShowId)
+                    .OnDelete(DeleteBehavior.Restrict);
 
                 entity.HasOne(s => s.Seat)
-                      .WithMany()
-                      .HasForeignKey(s => s.SeatId)
-                      .OnDelete(DeleteBehavior.Restrict);
+                    .WithMany()
+                    .HasForeignKey(s => s.SeatId)
+                    .OnDelete(DeleteBehavior.Restrict);
             });
         }
     }

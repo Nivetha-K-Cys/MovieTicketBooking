@@ -10,7 +10,6 @@ C:\Users\niven\source\repos\MovieTicketBooking\MovieTicketBooking\bin\Debug\net1
 C:\Users\niven\source\repos\MovieTicketBooking\MovieTicketBooking\bin\Debug\net10.0\BCrypt-Net-Next.dll
 C:\Users\niven\source\repos\MovieTicketBooking\MovieTicketBooking\bin\Debug\net10.0\Humanizer.dll
 C:\Users\niven\source\repos\MovieTicketBooking\MovieTicketBooking\bin\Debug\net10.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
-C:\Users\niven\source\repos\MovieTicketBooking\MovieTicketBooking\bin\Debug\net10.0\Microsoft.AspNetCore.OpenApi.dll
 C:\Users\niven\source\repos\MovieTicketBooking\MovieTicketBooking\bin\Debug\net10.0\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\niven\source\repos\MovieTicketBooking\MovieTicketBooking\bin\Debug\net10.0\Microsoft.Bcl.Cryptography.dll
 C:\Users\niven\source\repos\MovieTicketBooking\MovieTicketBooking\bin\Debug\net10.0\Microsoft.Build.Framework.dll
@@ -55,6 +54,7 @@ C:\Users\niven\source\repos\MovieTicketBooking\MovieTicketBooking\bin\Debug\net1
 C:\Users\niven\source\repos\MovieTicketBooking\MovieTicketBooking\bin\Debug\net10.0\System.Configuration.ConfigurationManager.dll
 C:\Users\niven\source\repos\MovieTicketBooking\MovieTicketBooking\bin\Debug\net10.0\System.IdentityModel.Tokens.Jwt.dll
 C:\Users\niven\source\repos\MovieTicketBooking\MovieTicketBooking\bin\Debug\net10.0\System.Memory.Data.dll
+C:\Users\niven\source\repos\MovieTicketBooking\MovieTicketBooking\bin\Debug\net10.0\System.Security.Cryptography.Pkcs.dll
 C:\Users\niven\source\repos\MovieTicketBooking\MovieTicketBooking\bin\Debug\net10.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\niven\source\repos\MovieTicketBooking\MovieTicketBooking\bin\Debug\net10.0\cs\Microsoft.CodeAnalysis.resources.dll
 C:\Users\niven\source\repos\MovieTicketBooking\MovieTicketBooking\bin\Debug\net10.0\de\Microsoft.CodeAnalysis.resources.dll
@@ -145,6 +145,7 @@ C:\Users\niven\source\repos\MovieTicketBooking\MovieTicketBooking\bin\Debug\net1
 C:\Users\niven\source\repos\MovieTicketBooking\MovieTicketBooking\bin\Debug\net10.0\runtimes\win-arm64\native\msalruntime_arm64.dll
 C:\Users\niven\source\repos\MovieTicketBooking\MovieTicketBooking\bin\Debug\net10.0\runtimes\win-x64\native\msalruntime.dll
 C:\Users\niven\source\repos\MovieTicketBooking\MovieTicketBooking\bin\Debug\net10.0\runtimes\win-x86\native\msalruntime_x86.dll
+C:\Users\niven\source\repos\MovieTicketBooking\MovieTicketBooking\bin\Debug\net10.0\runtimes\win\lib\net10.0\System.Security.Cryptography.Pkcs.dll
 C:\Users\niven\source\repos\MovieTicketBooking\MovieTicketBooking\obj\Debug\net10.0\MovieTicketBooking.csproj.AssemblyReference.cache
 C:\Users\niven\source\repos\MovieTicketBooking\MovieTicketBooking\obj\Debug\net10.0\rpswa.dswa.cache.json
 C:\Users\niven\source\repos\MovieTicketBooking\MovieTicketBooking\obj\Debug\net10.0\MovieTicketBooking.GeneratedMSBuildEditorConfig.editorconfig
