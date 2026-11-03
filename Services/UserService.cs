@@ -19,9 +19,10 @@ namespace MovieTicketBooking.Services
         public async Task<bool> RegisterAsync(RegisterDto dto)
         {
             var existingUser = await _userRepository.GetByEmailAsync(dto.Email);
+
             if (existingUser != null)
             {
-                return false; // Email already exists
+                return false;
             }
 
             var user = new User
@@ -29,7 +30,7 @@ namespace MovieTicketBooking.Services
                 Username = dto.Username,
                 Email = dto.Email,
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password),
-                Role = string.IsNullOrEmpty(dto.Role) ? "User" : dto.Role
+                Role = "User"
             };
 
             await _userRepository.AddAsync(user);
@@ -39,9 +40,11 @@ namespace MovieTicketBooking.Services
         public async Task<string?> LoginAsync(LoginDto dto)
         {
             var user = await _userRepository.GetByEmailAsync(dto.Email);
-            if (user == null || !BCrypt.Net.BCrypt.Verify(dto.Password, user.PasswordHash))
+
+            if (user == null ||
+                !BCrypt.Net.BCrypt.Verify(dto.Password, user.PasswordHash))
             {
-                return null; // Invalid credentials
+                return null;
             }
 
             return _jwtService.GenerateToken(user);

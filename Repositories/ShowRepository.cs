@@ -1,6 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿
+using Microsoft.EntityFrameworkCore;
 using MovieTicketBooking.Data;
-using MovieTicketBooking.Interfaces;
+using MovieTicketBooking.Repositories.Interfaces;
 using MovieTicketBooking.Models;
 
 namespace MovieTicketBooking.Repositories
@@ -43,13 +44,16 @@ namespace MovieTicketBooking.Repositories
         {
             _context.Shows.Add(show);
             await _context.SaveChangesAsync();
+
             return show;
         }
 
         public async Task<bool> UpdateShowAsync(int id, Show show)
         {
             var existing = await _context.Shows.FindAsync(id);
-            if (existing == null) return false;
+
+            if (existing == null)
+                return false;
 
             existing.MovieId = show.MovieId;
             existing.ScreenId = show.ScreenId;
@@ -58,16 +62,21 @@ namespace MovieTicketBooking.Repositories
             existing.TicketPrice = show.TicketPrice;
 
             await _context.SaveChangesAsync();
+
             return true;
         }
 
         public async Task<bool> DeleteShowAsync(int id)
         {
             var show = await _context.Shows.FindAsync(id);
-            if (show == null) return false;
+
+            if (show == null)
+                return false;
 
             _context.Shows.Remove(show);
+
             await _context.SaveChangesAsync();
+
             return true;
         }
     }

@@ -1,6 +1,9 @@
-﻿using MovieTicketBooking.DTOs.Shows;
+﻿
+using MovieTicketBooking.DTOs.Shows;
 using MovieTicketBooking.Interfaces;
 using MovieTicketBooking.Models;
+using MovieTicketBooking.Repositories.Interfaces;
+using MovieTicketBooking.Services.Interfaces;
 
 namespace MovieTicketBooking.Services
 {
@@ -16,6 +19,7 @@ namespace MovieTicketBooking.Services
         public async Task<IEnumerable<ShowDto>> GetAllShowsAsync()
         {
             var shows = await _showRepository.GetAllShowsAsync();
+
             return shows.Select(s => new ShowDto
             {
                 ShowId = s.ShowId,
@@ -32,7 +36,9 @@ namespace MovieTicketBooking.Services
         public async Task<ShowDto?> GetShowByIdAsync(int id)
         {
             var s = await _showRepository.GetShowByIdAsync(id);
-            if (s == null) return null;
+
+            if (s == null)
+                return null;
 
             return new ShowDto
             {
@@ -50,6 +56,7 @@ namespace MovieTicketBooking.Services
         public async Task<IEnumerable<ShowDto>> GetShowsByMovieIdAsync(int movieId)
         {
             var shows = await _showRepository.GetShowsByMovieIdAsync(movieId);
+
             return shows.Select(s => new ShowDto
             {
                 ShowId = s.ShowId,

@@ -12,8 +12,8 @@ using MovieTicketBooking.Data;
 namespace MovieTicketBooking.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20261102172308_AddPendingChanges")]
-    partial class AddPendingChanges
+    [Migration("20261103054504_RepairMissingTables")]
+    partial class RepairMissingTables
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

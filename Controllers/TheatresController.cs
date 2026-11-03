@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MovieTicketBooking.DTOs;
 using MovieTicketBooking.Services;
+using MovieTicketBooking.Services.Interfaces;
 
 namespace MovieTicketBooking.Controllers
 {
@@ -8,9 +9,9 @@ namespace MovieTicketBooking.Controllers
     [ApiController]
     public class TheatersController : ControllerBase
     {
-        private readonly TheaterService _theaterService;
+        private readonly ITheaterService _theaterService;
 
-        public TheatersController(TheaterService theaterService)
+        public TheatersController(ITheaterService theaterService)
         {
             _theaterService = theaterService;
         }
@@ -26,7 +27,10 @@ namespace MovieTicketBooking.Controllers
         public async Task<ActionResult<TheaterDto>> GetTheater(int id)
         {
             var theater = await _theaterService.GetTheaterByIdAsync(id);
-            if (theater == null) return NotFound();
+
+            if (theater == null)
+                return NotFound();
+
             return Ok(theater);
         }
 
@@ -41,7 +45,7 @@ namespace MovieTicketBooking.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateTheater(int id, [FromBody] TheaterDto theaterDto)
+        public async Task<IActionResult> UpdateTheater(int id, TheaterDto theaterDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);

@@ -1,4 +1,6 @@
+
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using MovieTicketBooking.Dtos;
 using MovieTicketBooking.Interfaces;
 
@@ -15,43 +17,73 @@ namespace MovieTicketBooking.Controllers
             _movieService = movieService;
         }
 
+        // Everyone can view movies
         [HttpGet]
-        public async Task<IActionResult> GetAll() => Ok(await _movieService.GetAllMoviesAsync());
+        [AllowAnonymous]
+        public async Task<IActionResult> GetAll()
+        {
+            return Ok(await _movieService.GetAllMoviesAsync());
+        }
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetById(int id)
         {
             var movie = await _movieService.GetMovieByIdAsync(id);
-            if (movie == null) return NotFound();
+
+            if (movie == null)
+                return NotFound();
+
             return Ok(movie);
         }
 
         [HttpGet("search")]
+        [AllowAnonymous]
         public async Task<IActionResult> Search([FromQuery] string title)
         {
             return Ok(await _movieService.SearchMoviesByTitleAsync(title));
         }
 
+        // Only Admin can create movies
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateMovieRequest request)
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Create(
+            [FromBody] CreateMovieRequest request)
         {
             var created = await _movieService.CreateMovieAsync(request);
-            return CreatedAtAction(nameof(GetById), new { id = created.MovieId }, created);
+
+            return CreatedAtAction(
+                nameof(GetById),
+                new { id = created.MovieId },
+                created
+            );
         }
 
+        // Only Admin can update movies
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] UpdateMovieRequest request)
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Update(
+            int id,
+            [FromBody] UpdateMovieRequest request)
         {
             var result = await _movieService.UpdateMovieAsync(id, request);
-            if (!result) return NotFound();
+
+            if (!result)
+                return NotFound();
+
             return Ok(new { message = "Movie updated successfully!" });
         }
 
+        // Only Admin can delete movies
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
             var result = await _movieService.DeleteMovieAsync(id);
-            if (!result) return NotFound();
+
+            if (!result)
+                return NotFound();
+
             return NoContent();
         }
     }
