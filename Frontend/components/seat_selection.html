@@ -1,0 +1,16 @@
+<button class="btn-back" onclick="Router.navigateTo('shows')">← Back to Shows</button>
+<h2>🎟️ Select Your Seats</h2>
+<div class="screen-indicator">SCREEN THIS WAY</div>
+<div class="seat-layout-container">
+    <div class="seat-grid" id="seat-grid"></div>
+    <div class="seat-legend">
+        <div><span class="seat available"></span> Available</div>
+        <div><span class="seat selected"></span> Selected</div>
+        <div><span class="seat booked"></span> Booked</div>
+    </div>
+</div>
+<div class="seat-action-bar">
+    <div>Selected Seats: <strong id="selected-seats-text">None</strong></div>
+    <div>Total: <strong id="total-price-text">₹0</strong></div>
+    <button class="btn-primary" onclick="SeatComponent.proceedToBooking()">Proceed to Booking</button>
+</div>

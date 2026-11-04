@@ -1,0 +1,17 @@
+<header class="navbar">
+    <div class="logo" onclick="Router.navigateTo('home')">🎬 CineMax</div>
+    <nav class="nav-links">
+        <a href="#" onclick="Router.navigateTo('home')" id="nav-home" class="active">Home</a>
+        <a href="#" onclick="Router.navigateTo('movies')" id="nav-movies">Movies</a>
+        <a href="#" onclick="Router.navigateTo('my-bookings')" id="nav-bookings">My Bookings</a>
+        <a href="#" onclick="Router.navigateTo('admin')" id="nav-admin" style="display:none; color: #ffc107;">Admin Dashboard</a>
+    </nav>
+    <div class="auth-buttons" id="auth-buttons">
+        <button class="btn-outline" onclick="Router.navigateTo('login')">Login</button>
+        <button class="btn-primary" onclick="Router.navigateTo('register')">Register</button>
+    </div>
+    <div class="user-profile" id="user-profile" style="display:none;">
+        <span id="username-display">User</span>
+        <button class="btn-danger" onclick="logoutUser()">Logout</button>
+    </div>
+</header>

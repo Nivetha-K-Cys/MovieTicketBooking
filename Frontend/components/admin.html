@@ -1,0 +1,42 @@
+<div class="admin-header">
+    <h2>⚙️ Admin Dashboard</h2>
+    <div class="admin-tabs">
+        <button class="tab-btn active" onclick="AdminComponent.switchAdminTab('movies')">Movies</button>
+        <button class="tab-btn" onclick="AdminComponent.switchAdminTab('theatres')">Theatres</button>
+        <button class="tab-btn" onclick="AdminComponent.switchAdminTab('shows')">Shows</button>
+    </div>
+</div>
+
+<div id="admin-tab-movies" class="admin-tab-content">
+    <h3>Manage Movies</h3>
+    <div class="admin-form-box">
+        <input type="text" id="adm-movie-title" placeholder="Movie Title">
+        <input type="text" id="adm-movie-genre" placeholder="Genre">
+        <input type="number" id="adm-movie-duration" placeholder="Duration (mins)">
+        <input type="number" id="adm-movie-price" placeholder="Ticket Price (₹)">
+        <button class="btn-primary" onclick="AdminComponent.adminAddMovie()">Add Movie</button>
+    </div>
+    <div id="admin-movies-list" class="admin-list"></div>
+</div>
+
+<div id="admin-tab-theatres" class="admin-tab-content" style="display:none;">
+    <h3>Manage Theatres & Screens</h3>
+    <div class="admin-form-box">
+        <input type="text" id="adm-theatre-name" placeholder="Theatre Name & Location">
+        <input type="text" id="adm-screen-name" placeholder="Screen Name (e.g. Audi 1)">
+        <button class="btn-primary" onclick="AdminComponent.adminAddTheatre()">Add Theatre</button>
+    </div>
+    <div id="admin-theatres-list" class="admin-list"></div>
+</div>
+
+<div id="admin-tab-shows" class="admin-tab-content" style="display:none;">
+    <h3>Manage Show Timings</h3>
+    <div class="admin-form-box">
+        <select id="adm-show-movie"><option>Select Movie</option></select>
+        <select id="adm-show-theatre"><option>Select Theatre</option></select>
+        <input type="date" id="adm-show-date">
+        <input type="time" id="adm-show-time">
+        <button class="btn-primary" onclick="AdminComponent.adminAddShow()">Schedule Show</button>
+    </div>
+    <div id="admin-shows-list" class="admin-list"></div>
+</div>
