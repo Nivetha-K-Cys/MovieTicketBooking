@@ -1,6 +1,5 @@
-
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MovieTicketBooking.Dtos;
 using MovieTicketBooking.Interfaces;
 
@@ -22,7 +21,8 @@ namespace MovieTicketBooking.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> GetAll()
         {
-            return Ok(await _movieService.GetAllMoviesAsync());
+            var movies = await _movieService.GetAllMoviesAsync();
+            return Ok(movies);
         }
 
         [HttpGet("{id}")]
@@ -32,7 +32,7 @@ namespace MovieTicketBooking.Controllers
             var movie = await _movieService.GetMovieByIdAsync(id);
 
             if (movie == null)
-                return NotFound();
+                return NotFound(new { message = "Movie not found" });
 
             return Ok(movie);
         }
@@ -41,14 +41,14 @@ namespace MovieTicketBooking.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Search([FromQuery] string title)
         {
-            return Ok(await _movieService.SearchMoviesByTitleAsync(title));
+            var movies = await _movieService.SearchMoviesByTitleAsync(title);
+            return Ok(movies);
         }
 
         // Only Admin can create movies
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Create(
-            [FromBody] CreateMovieRequest request)
+        public async Task<IActionResult> Create([FromBody] CreateMovieRequest request)
         {
             var created = await _movieService.CreateMovieAsync(request);
 
@@ -62,14 +62,12 @@ namespace MovieTicketBooking.Controllers
         // Only Admin can update movies
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Update(
-            int id,
-            [FromBody] UpdateMovieRequest request)
+        public async Task<IActionResult> Update(int id, [FromBody] UpdateMovieRequest request)
         {
             var result = await _movieService.UpdateMovieAsync(id, request);
 
             if (!result)
-                return NotFound();
+                return NotFound(new { message = "Movie not found" });
 
             return Ok(new { message = "Movie updated successfully!" });
         }
@@ -82,7 +80,7 @@ namespace MovieTicketBooking.Controllers
             var result = await _movieService.DeleteMovieAsync(id);
 
             if (!result)
-                return NotFound();
+                return NotFound(new { message = "Movie not found" });
 
             return NoContent();
         }
